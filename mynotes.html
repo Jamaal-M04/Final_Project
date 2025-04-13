@@ -6,7 +6,7 @@
     <title>My Notes</title>
     
     <style>
-        /* styles for the body */
+        /* General styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -34,7 +34,7 @@
             word-wrap: break-word;
         }
 
-        /* Timestamp style for the notes */
+        /* Timestamp styling for notes */
         .timestamp {
             font-size: 12px;
             color: #888;
@@ -53,7 +53,7 @@
             margin-top: 20px;
         }
 
-        /* Header and navigation styles for navigation. */
+        /* Header and navigation styles for reuse of header and navigation. */
         header {
             background-color: #333;
             color: white;
@@ -85,4 +85,80 @@
     </style>
 </head>
 <body>
-    
+
+    <div id="pagewrap">
+
+        <!-- Header Section -->
+        <header>
+            <h2>Forensic Casenotes</h2>
+        </header>
+
+        <!-- Navigation Bar -->
+        <nav>
+            <ul id="navlist">
+                <li><a href="mynotes.html">My Case Notes</a></li>
+                <li><a href="createnotes.html">Create Notes</a></li>
+                <li><a href="#" onclick="signOut()">Sign Out</a></li>
+            </ul>
+        </nav>
+
+        <!-- Note Container -->
+        <div class="note-container">
+            <h2>My Saved Notes</h2>
+            <div id="notesList"></div> <!-- Notes will be displayed here in the list with the timestamped dates -->
+            <button id="clearNotesButton" class="clear-button">Clear All Notes</button> <!-- clear saved notes button -->
+        </div>
+
+        <footer></footer>
+    </div>
+
+    <!-- JavaScript functionality -->
+    <script>
+        // Sign out function to clear session and redirect to login.
+        function signOut() {
+            sessionStorage.clear();  // Clears the session data
+            window.location.replace("login.html");  // Redirects to the login page
+        }
+
+        // Display saved notes from LocalStorage when the page loads by getting then listing.
+        window.onload = function() {
+            let notes = JSON.parse(localStorage.getItem("notes")) || [];
+            let notesListContainer = document.getElementById("notesList");
+
+            // If no notes are saved, display a message to show no notes have been saved.
+            if (notes.length === 0) {
+                notesListContainer.innerHTML = "<p>No notes saved yet.</p>";
+            } else {
+                // display notes
+                notes.forEach(function(note) {
+                    let noteElement = document.createElement("div"); //represents each note more clearly.
+                    noteElement.classList.add("note");
+
+                    // Display note content
+                    let noteContent = document.createElement("p"); //new paragraph when displaying.
+                    noteContent.textContent = note.note;
+
+                    // Display timestamp
+                    let timestampElement = document.createElement("p");
+                    timestampElement.classList.add("timestamp");
+                    timestampElement.textContent = `Saved on: ${note.timestamp}`;
+
+                    noteElement.appendChild(noteContent); //appends content of the note
+                    noteElement.appendChild(timestampElement); //appends timestamp of the note.
+                    notesListContainer.appendChild(noteElement);
+                });
+            }
+        };
+
+        // Clear all notes from LocalStorage
+        document.getElementById("clearNotesButton").addEventListener("click", function() {
+            if (confirm("Are you sure you want to clear all notes?")) {
+                localStorage.removeItem("notes"); // Removes all notes from localStorage
+                document.getElementById("notesList").innerHTML = "<p>No notes saved yet.</p>"; // Update UI
+                alert("All notes have been cleared.");
+            }
+        });
+    </script>
+
+</body>
+</html>

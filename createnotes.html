@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Create Note</title>
+
+
+    <link href="./style.css" rel="stylesheet" type="text/css" />
+
+    <script>
+        // Function to sign out the user
+        function signOut() {
+            sessionStorage.clear(); // Clears session storage data (temporary data)
+            window.location.replace("login.html"); // Redirects to login page.
+        }
+    </script>
+
+    <style>
+        /* Centering the note section and giving it vertical spacing */
+        .note-container {
+            display: flex;
+            flex-direction: column; 
+            gap: 10px;              
+            max-width: 500px;       
+            margin: 40px auto;      
+        }
+
+        /* Styling the textarea where the note is entered */
+        textarea {
+            width: 100%;            
+            height: 150px;          
+            padding: 10px;          
+            font-size: 16px;        
+            border: 1px solid #ccc; 
+            border-radius: 5px;     
+        }
+
+        /* Base button styling */
+        button {
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;        /* Pointer cursor on hover */
+            color: white;           
+            border: none;
+            border-radius: 5px;
+        }
+
+        /* Style for clear button (red background) */
+        .clear-button {
+            background-color: #f44336; /* Red */
+        }
+
+        /* "My Notes" button style (blue background) */
+        .my-notes-button {
+            background-color: #007BFF; /* Blue */
+        }
+
+        /* save note button style (green background) */
+        #saveNoteButton {
+            background-color: #4CAF50; /* Green */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Main page container -->
+    <div id="pagewrap">
+
+        <!-- Page header -->
+        <header>
+            <h2>Forensic Casenotes</h2>
+        </header>
+
+        <!-- Navigation bar -->
+        <nav>
+            <ul id="navlist">
+                <li><a href="mynotes.html">My Case Notes</a></li>
+                <li><a href="createnotes.html">Create Notes</a></li>
+                <li><a href="#" onclick="signOut()">Sign Out</a></li>
+            </ul>
+        </nav>
+
+        <!-- Note input section -->
+        <div class="note-container">
+            <h2>Add Your Note</h2>
+
+            <!-- Text input for the note -->
+            <textarea id="noteInput" placeholder="Write your note here..."></textarea>
+
+            <!-- Button to save the note -->
+            <button id="saveNoteButton">Save Note</button>
+
+            <!-- Button to go to the "My Notes" page -->
+            <button class="my-notes-button" onclick="window.location.href='mynotes.html'">My Notes</button>
+
+            <!-- Button to clear all saved notes -->
+            <button id="clearNotesButton" class="clear-button">Clear All Notes</button>
+        </div>
+
+        
+        <footer></footer>
+    </div>
+
+    <script>
+        // Save the note to LocalStorage
+        document.getElementById("saveNoteButton").addEventListener("click", function () {
+            let noteContent = document.getElementById("noteInput").value; // Get text from textarea
+
+            if (noteContent) {
+                // Get current date and time for timestamp based on user location
+                let timestamp = new Date().toLocaleString(); 
+
+                // Get existing notes or create a new array of notes
+                let notes = JSON.parse(localStorage.getItem("notes")) || [];
+
+                // Add new note with timestamp (note and timestamp)
+                notes.push({ note: noteContent, timestamp: timestamp });
+
+                // Save updated note list to LocalStorage (stringify turns it into a string)
+                localStorage.setItem("notes", JSON.stringify(notes));
+
+                alert("Note saved!"); // Confirmation of saving
+                document.getElementById("noteInput").value = ""; // Clear the textarea once a note is saved.
+            } else {
+                alert("Please write something to save!"); // alert message displayed if nothing is entered
+            }
+        });
+
+        // Clear all notes from LocalStorage
+        document.getElementById("clearNotesButton").addEventListener("click", function () {
+            if (confirm("Are you sure you want to clear all notes?")) {
+                localStorage.removeItem("notes"); // Delete saved notes
+                alert("All notes have been cleared."); // A confirmation message showing notes have been deleted.
+            }
+        });
+    </script>
+</body>
+</html>

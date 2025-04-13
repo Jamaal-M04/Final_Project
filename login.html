@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <div class="input-group">
+            <input type="text" id="username" placeholder="Username">
+        </div>
+        <div class="input-group"></div>
+            <input type="password" id="password" placeholder="Password">
+        </div>
+        <button class="login-btn" onclick="checkLogin()">Login</button>
+        <p id="message"></p>
+    </div>
+
+    <script>
+        // This defines valid username and password for login validation
+        const validUsername = "Admin";
+        const validPassword = "Admin";
+
+        // Function to check login credentials for authentication
+        function checkLogin() {
+            const username = document.getElementById("username").value; // Gets the username input
+            const password = document.getElementById("password").value; // Gets the password input
+            const message = document.getElementById("message"); // Get message that will be displayed if errors are present
+
+            // Checks if the username and password are correct
+            if (username === validUsername && password === validPassword) {
+                window.location.href = "homepage.html"; // Takes user to homepage if credentials match
+            } else {
+                message.textContent = "Invalid username or password."; // Show error message
+            }
+        }
+    </script>
+</body>
+</html>

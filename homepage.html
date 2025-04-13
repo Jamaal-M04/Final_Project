@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="./style.css" rel="stylesheet" type="text/css" />
+    <title>WAT Portfolio</title>
+    <script>
+        function signOut() {
+            sessionStorage.clear();
+            window.history.back(); // Navigate to the previous page
+        }
+    </script>
+</head>
+<body>
+    <div id="pagewrap">
+        <header>
+            <h2>Forensic Casenotes</h2>
+        </header>
+        
+        <nav>
+            <ul id="navlist">
+                <li><a href="./mynotes.html">My Case Notes</a></li>
+                <li><a href="./createnotes.html">Create Notes</a></li>
+                <li><a href="#" onclick="signOut()">Sign Out</a></li>
+            </ul>
+        </nav>
+
+        <footer></footer>
+    </div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+/* resets the style */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif; /* sets a new font for the elements */
+}
+
+/* Style the body with a background image and center content */
+body {
+    background: url('./glassss.jpg'); /* the background image which will be used*/
+    background-size: cover; /* Make the background cover the entire viewport */
+    height: 95vh;
+    display: flex; /* Use flexbox layout */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Container for the login form */
+.login-container {
+    background: rgba(255, 255, 255, 0.1); /* Semi-transparent white background */
+    padding: 20px; /* Space inside the container */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+    backdrop-filter: blur(10px); /* Gives the glassmorphism blur effect */
+    width: 300px; 
+    text-align: center; /* Center text and elements inside */
+}
+
+/* Heading inside the login container */
+.login-container h2 {
+    color: white; /* White text color for visibility over the background */
+    margin-bottom: 15px;
+}
+
+/* Wrapper around input fields */
+.input-group {
+    margin-bottom: 15px; /* Space between input groups */
+    text-align: left; /* Align the input labels or fields to the left */
+}
+
+/* Style for the input fields */
+.input-group input {
+    width: 100%; /* Full width inside the group */
+    padding: 10px; /* Inner spacing for input text */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Slightly rounded corners */
+}
+
+/* Style for the login button */
+.login-btn {
+    width: 100%; /* Full width button */
+    padding: 10px; /* Inner spacing */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded edges */
+    background: white;
+    cursor: pointer; /* Pointer cursor on hover */
+    font-size: 16px;
+}
+
+/* Error message text below the button for validation phase */
+#message {
+    color: red; /* Red color for error message */
+    font-weight: bolder;
+    margin-top: 10px;
+}
